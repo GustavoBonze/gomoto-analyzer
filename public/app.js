@@ -27,8 +27,8 @@ function formatCurrency(value) {
 
 // Cores para gráficos
 const chartColors = [
-  '#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0',
-  '#4895ef', '#560bad', '#b5179e', '#f15bb5', '#00bbf9'
+  '#8F704B', '#E09E10', '#B89B80', '#595959', '#D5D4D0',
+  '#7D614A', '#C88A0E', '#A68770', '#6B6B6B', '#BCBCB6'
 ];
 
 // Configuração de navegação via âncoras
@@ -259,7 +259,17 @@ function createFinancialCharts(data) {
   }
 }
 
-// Gráfico de resultados mensais - simplificado (sem linhas)
+// Função para criar gradientes de cores para gráficos de barras
+function createGradient(ctx, color) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, color);
+  gradient.addColorStop(1, color + '80'); // 50% de opacidade
+  return gradient;
+}
+
+// Atualização para funções de gráficos específicos
+
+// Para o gráfico de resultados mensais
 function createResultadoMensalChart(dados) {
   try {
     console.log("Criando gráfico de resultado mensal com:", dados);
@@ -289,6 +299,10 @@ function createResultadoMensalChart(dados) {
     const receitas = dados.map(item => item.receita);
     const despesas = dados.map(item => item.despesa);
     
+    // Criar gradientes
+    const receitaGradient = createGradient(ctx, '#E09E10');
+    const despesaGradient = createGradient(ctx, '#595959');
+    
     window.resultadoMensalChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -297,15 +311,15 @@ function createResultadoMensalChart(dados) {
           {
             label: 'Receitas',
             data: receitas,
-            backgroundColor: 'rgba(40, 167, 69, 0.7)',
-            borderColor: 'rgba(40, 167, 69, 1)',
+            backgroundColor: receitaGradient,
+            borderColor: '#E09E10',
             borderWidth: 1
           },
           {
             label: 'Despesas',
             data: despesas,
-            backgroundColor: 'rgba(220, 53, 69, 0.7)',
-            borderColor: 'rgba(220, 53, 69, 1)',
+            backgroundColor: despesaGradient,
+            borderColor: '#595959',
             borderWidth: 1
           }
         ]
@@ -317,7 +331,8 @@ function createResultadoMensalChart(dados) {
           y: {
             beginAtZero: true,
             grid: {
-              display: true
+              display: true,
+              color: 'rgba(200, 200, 200, 0.2)'
             },
             ticks: {
               callback: function(value) {
@@ -326,7 +341,16 @@ function createResultadoMensalChart(dados) {
                   return 'R$ ' + (value / 1000).toFixed(0) + 'K';
                 }
                 return 'R$ ' + value;
-              }
+              },
+              color: '#595959'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: '#595959'
             }
           }
         },
@@ -337,6 +361,11 @@ function createResultadoMensalChart(dados) {
                 return context.dataset.label + ': ' + formatCurrency(context.raw);
               }
             }
+          },
+          legend: {
+            labels: {
+              color: '#292828' 
+            }
           }
         }
       }
@@ -346,7 +375,7 @@ function createResultadoMensalChart(dados) {
   }
 }
 
-// Gráfico de tipos de despesas
+// Para o gráfico de tipos de despesas
 function createDespesasTipoChart(dados) {
   try {
     console.log("Criando gráfico de tipos de despesas com:", dados);
@@ -400,7 +429,11 @@ function createDespesasTipoChart(dados) {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            position: 'right'
+            position: 'right',
+            labels: {
+              color: '#292828',
+              padding: 15
+            }
           },
           tooltip: {
             callbacks: {
@@ -592,7 +625,7 @@ function createReceitaDespesaMotosChart(dados) {
   }
 }
 
-// Gráfico de projeção por ocupação
+// Para o gráfico de projeção de ocupação
 function createProjecaoOcupacaoChart(dados) {
   try {
     console.log("Criando gráfico de projeção com:", dados);
@@ -615,6 +648,10 @@ function createProjecaoOcupacaoChart(dados) {
     const receitas = dados.map(item => item.receita);
     const lucros = dados.map(item => item.lucro);
     
+    // Criar gradientes
+    const receitaGradient = createGradient(ctx, '#B89B80');
+    const lucroGradient = createGradient(ctx, '#8F704B');
+    
     window.projecaoOcupacaoChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -623,15 +660,15 @@ function createProjecaoOcupacaoChart(dados) {
           {
             label: 'Receita Anual',
             data: receitas,
-            backgroundColor: 'rgba(255, 193, 7, 0.7)',
-            borderColor: 'rgba(255, 193, 7, 1)',
+            backgroundColor: receitaGradient,
+            borderColor: '#B89B80',
             borderWidth: 1
           },
           {
             label: 'Lucro Anual',
             data: lucros,
-            backgroundColor: 'rgba(40, 167, 69, 0.7)',
-            borderColor: 'rgba(40, 167, 69, 1)',
+            backgroundColor: lucroGradient,
+            borderColor: '#8F704B',
             borderWidth: 1
           }
         ]
@@ -642,10 +679,36 @@ function createProjecaoOcupacaoChart(dados) {
         scales: {
           y: {
             beginAtZero: true,
+            grid: {
+              color: 'rgba(200, 200, 200, 0.2)'
+            },
             ticks: {
               callback: function(value) {
                 return formatCurrency(value).replace('R$', '');
+              },
+              color: '#595959'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: '#595959'
+            }
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': ' + formatCurrency(context.raw);
               }
+            }
+          },
+          legend: {
+            labels: {
+              color: '#292828'
             }
           }
         }

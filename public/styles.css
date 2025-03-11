@@ -1,8 +1,22 @@
-/* public/styles.css */
+/* public/styles.css - Atualizado com paleta de cores do Claude */
+:root {
+  /* Paleta de cores Claude */
+  --claude-primary: #8F704B;       /* Marrom/Laranja principal */
+  --claude-secondary: #F6F5F1;     /* Off-white/cinza claro */
+  --claude-dark: #292828;          /* Cinza escuro quase preto */
+  --claude-gray: #595959;          /* Cinza médio */
+  --claude-light-gray: #D5D4D0;    /* Cinza claro */
+  --claude-accent: #E09E10;        /* Laranja/âmbar acento */
+  --claude-hover: #B89B80;         /* Tom intermediário para hover */
+  --positive: #65A30D;             /* Verde para valores positivos */
+  --negative: #DC2626;             /* Vermelho para valores negativos */
+}
+
 body {
-  background-color: #f5f5f5;
+  background-color: var(--claude-secondary);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding-bottom: 50px;
+  color: var(--claude-dark);
 }
 
 .navbar {
@@ -10,17 +24,41 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+  background-color: var(--claude-primary) !important;
 }
 
 .card {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  border: none;
 }
 
 .card-header {
   border-radius: 10px 10px 0 0 !important;
   font-weight: bold;
+  color: var(--claude-dark);
+  background-color: var(--claude-light-gray);
+}
+
+.bg-primary {
+  background-color: var(--claude-primary) !important;
+  color: white !important;
+}
+
+.bg-success {
+  background-color: var(--claude-accent) !important;
+  color: white !important;
+}
+
+.bg-info {
+  background-color: var(--claude-gray) !important;
+  color: white !important;
+}
+
+.bg-warning {
+  background-color: var(--claude-hover) !important;
+  color: white !important;
 }
 
 .metric-card {
@@ -29,16 +67,23 @@ body {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  background-color: white;
 }
 
 .metric-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .metric-card h2 {
   font-size: 1.8rem;
   font-weight: bold;
   margin-top: 10px;
+  color: var(--claude-primary);
+}
+
+.metric-card .card-title {
+  color: var(--claude-gray);
 }
 
 canvas {
@@ -54,6 +99,22 @@ section {
   overflow-x: auto;
 }
 
+.table {
+  color: var(--claude-dark);
+}
+
+.table thead {
+  background-color: var(--claude-light-gray);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(143, 112, 75, 0.05);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(143, 112, 75, 0.1);
+}
+
 @media (max-width: 768px) {
   .row {
     margin-left: 0;
@@ -67,19 +128,44 @@ section {
 
 /* Cores para valores positivos e negativos */
 .text-positive {
-  color: #198754;
+  color: var(--positive);
 }
 
 .text-negative {
-  color: #dc3545;
+  color: var(--negative);
 }
 
 .navbar-nav .nav-link {
   padding: 0.5rem 1rem;
   font-weight: 500;
+  color: white !important;
 }
 
 .navbar-nav .nav-link.active {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
+}
+
+/* Estilização para botões */
+.btn-primary {
+  background-color: var(--claude-primary);
+  border-color: var(--claude-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--claude-hover);
+  border-color: var(--claude-hover);
+}
+
+/* Estilização adicional para realce dos cards do dashboard */
+.card-body {
+  padding: 1.5rem;
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--claude-dark);
+}
+
+.text-center {
+  color: var(--claude-dark);
 }
