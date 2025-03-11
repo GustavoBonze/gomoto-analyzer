@@ -1,0 +1,355 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOMOTO Analyzer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">GOMOTO Analyzer</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#financeiro">Financeiro</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#operacional">Operacional</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projecoes">Projeções</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <h1 class="text-center mb-4">Análise de Dados - GOMOTO</h1>
+      </div>
+    </div>
+
+    <section id="dashboard" class="mb-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+              <h3>Dashboard</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Receita Total</h5>
+                      <h2 id="receita-total">R$ 0,00</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Despesa Total</h5>
+                      <h2 id="despesa-total">R$ 0,00</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Resultado</h5>
+                      <h2 id="resultado-total">R$ 0,00</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Payback Estimado</h5>
+                      <h2 id="payback-estimado">0 meses</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Resultados Mensais</h5>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart-resultado-mensal"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Distribuição de Despesas</h5>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart-despesas-tipo"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="financeiro" class="mb-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow">
+            <div class="card-header bg-success text-white">
+              <h3>Análise Financeira</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>ROI por Moto</h5>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart-roi-motos"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Receita vs Despesa por Moto</h5>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart-receita-despesa-motos"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Resumo Financeiro por Moto</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th>Placa</th>
+                              <th>Receita</th>
+                              <th>Despesa</th>
+                              <th>Resultado</th>
+                              <th>ROI</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tabela-financeiro-motos">
+                            <!-- Dados serão carregados via JavaScript -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="operacional" class="mb-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow">
+            <div class="card-header bg-info text-white">
+              <h3>Análise Operacional</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Total de Motos</h5>
+                      <h2 id="total-motos">0</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Locatários Ativos</h5>
+                      <h2 id="total-locatarios">0</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card metric-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Clientes na Fila</h5>
+                      <h2 id="total-fila">0</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Razão Demanda/Oferta</h5>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart-demanda-oferta"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Modelos de Motos</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Placa</th>
+                              <th>Modelo</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tabela-modelos">
+                            <!-- Dados serão carregados via JavaScript -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projecoes" class="mb-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow">
+            <div class="card-header bg-warning">
+              <h3>Projeções Financeiras</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Resumo da Projeção (por moto)</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <tbody>
+                            <tr>
+                              <th>Valor Semanal</th>
+                              <td id="valor-semanal">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                              <th>Valor Mensal Estimado</th>
+                              <td id="valor-mensal">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                              <th>Valor Anual Estimado</th>
+                              <td id="valor-anual">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                              <th>Custo Mensal</th>
+                              <td id="custo-mensal">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                              <th>Custo Anual</th>
+                              <td id="custo-anual">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                              <th>Lucro Anual Estimado</th>
+                              <td id="lucro-anual">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                              <th>Tempo Estimado de Payback</th>
+                              <td id="tempo-payback">0 meses</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Projeção por Taxa de Ocupação</h5>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart-projecao-ocupacao"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Detalhamento por Taxa de Ocupação</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th>Taxa de Ocupação</th>
+                              <th>Receita Anual</th>
+                              <th>Lucro Anual</th>
+                              <th>ROI Anual</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tabela-projecao-ocupacao">
+                            <!-- Dados serão carregados via JavaScript -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

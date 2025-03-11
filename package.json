@@ -1,0 +1,27 @@
+{
+  "name": "gomoto-analyzer",
+  "version": "1.0.0",
+  "description": "Sistema de análise de dados para negócio de locação de motos",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "excel",
+    "dashboard",
+    "data-analysis",
+    "chart",
+    "financial-analysis"
+  ],
+  "author": "GOMOTO",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

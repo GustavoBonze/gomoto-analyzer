@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  gomoto-analyzer:
+    build: .
+    container_name: gomoto-analyzer
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/usr/src/app/data
+      - ./public:/usr/src/app/public
+      - ./app.js:/usr/src/app/app.js
+    restart: unless-stopped
